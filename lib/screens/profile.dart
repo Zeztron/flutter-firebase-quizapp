@@ -1,20 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_quizapp/shared/bottom_nav.dart';
+import 'package:provider/provider.dart';
+
+import '../shared/bottom_nav.dart';
+import '../services/auth.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key key}) : super(key: key);
+  final AuthService auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Text('Profile screen')
-      ),
-      bottomNavigationBar: AppBottomNav(),
-    );
+
+    var user = Provider.of<FirebaseUser>(context);
+
+    if (user != null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(user.displayName ?? 'Guest'),
+          backgroundColor: Colors.deepOrange,
+        ),
+        body: Center(
+          child: FlatButton(
+            child: Text('Logout'),
+            color: Colors.red,
+            onPressed: () async {
+              await auth.signOut();
+              Navigator.of(context)
+                .pushNamedAndRemoveUntil('/', (route) => false);
+            },
+          )
+        ),
+        bottomNavigationBar: AppBottomNav(),
+      );
+    } else {
+      return Text('Not logged in.');
+    }
   }
 }

@@ -25,6 +25,7 @@ class AppBottomNav extends StatelessWidget {
       onTap: (int idx) {
         switch(idx) {
           case 0:
+            Navigator.pushNamed(context, '/topics');
             break;
           case 1:
             Navigator.pushNamed(context, '/about');

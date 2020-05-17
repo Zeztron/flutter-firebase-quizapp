@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/shared.dart';
 
 class TopicsScreen extends StatelessWidget {
   const TopicsScreen({Key key}) : super(key: key);
@@ -8,11 +9,9 @@ class TopicsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Topics'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.purple,
       ),
-      body: Center(
-        child: Text('Topics screen')
-      )
+      bottomNavigationBar: AppBottomNav(),
     );
   }
 }
